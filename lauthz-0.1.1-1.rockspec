@@ -9,7 +9,7 @@ version = "0.1.1-1"
 supported_platforms = {"linux", "macosx"}
 
 source = {
-  url = "git://github.com/kuafou/kong-lauthz-plugin",
+  url = "git://github.com/kuafou/kong-authz",
 }
 
 description = {
@@ -18,7 +18,7 @@ description = {
 }
 
 dependencies = {
-  ""
+  "http"
 }
 
 build = {
