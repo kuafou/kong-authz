@@ -9,13 +9,19 @@ function _M.execute(conf)
   local path = kong.request.get_path()
   -- get "X-Request-Useruuid"
   local user_uuid = kong.request.get_header("X-Request-Useruuid")
+  if not user_uuid then
+    user_uuid = "null"
+  end 
 
   -- send to authz
   kong.log.info("method is: " .. method)
   kong.log.info("path is: " .. path)
   kong.log.info("userUUID is: " .. user_uuid)
+  local epath = ngx.encode_args({sub = user_uuid, obj = path, act = method})
+  kong.log.info("epath is: ".. epath)
 
-  local uri = string.format("http://172.16.0.43:8888/authz?sub=%s&obj=%s&act=%s", user_uuid, path, method)
+
+  local uri = string.format("http://172.16.0.43:8888/authz?%s", epath)
   local req = hrequest.new_from_uri(uri)
   local headers, stream = req:go()
   if headers:get ":status" ~= "200" then
