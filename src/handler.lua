@@ -3,7 +3,7 @@ local access = require "kong.plugins.lauthz.access"
 
 local LauthzHandler = BasePlugin:extend()
 
-LauthzHandler.PRIORITY = 100
+LauthzHandler.PRIORITY = 5
 
 function LauthzHandler:new()
   LauthzHandler.super.new(self, "lauthz")
