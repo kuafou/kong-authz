@@ -1,4 +1,3 @@
-local request = require "kong.request"
 local hrequest = require "http.request"
 local kong = kong
 
@@ -6,10 +5,10 @@ local _M = {}
 
 function _M.execute(conf)
   -- get :method, path
-  local method = request.get_method()
-  local path = request.get_path()
+  local method = kong.request.get_method()
+  local path = kong.request.get_path()
   -- get "X-Request-UserUUID"
-  local user_uuid = request.get_headers("X-Request-UserUUID")
+  local user_uuid = kong.request.get_headers("X-Request-UserUUID")
 
   -- send to authz
   kong.log.info("method is: " .. method)
