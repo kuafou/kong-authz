@@ -7,8 +7,8 @@ function _M.execute(conf)
   -- get :method, path
   local method = kong.request.get_method()
   local path = kong.request.get_path()
-  -- get "X-Request-UserUUID"
-  local user_uuid = kong.request.get_header("X-Request-UserUUID")
+  -- get "X-Request-Useruuid"
+  local user_uuid = kong.request.get_header("X-Request-Useruuid")
 
   -- send to authz
   kong.log.info("method is: " .. method)
