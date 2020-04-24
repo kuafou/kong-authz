@@ -1,9 +1,8 @@
 local request = require "kong.request"
-local url = require "socket.url"
 local hrequest = require "http.request"
+local kong = kong
 
 local _M = {}
-local kong = kong
 
 function _M.execute(conf)
   -- get :method, path
@@ -18,7 +17,7 @@ function _M.execute(conf)
   kong.log.info("userUUID is: " .. user_uuid)
 
   local uri = string.format("http://172.16.0.43:8888/authz?sub=%s&obj=%s&act=%s", user_uuid, path, method)
-  local req = request.new_from_uri(uri)
+  local req = hrequest.new_from_uri(uri)
   local headers, stream = req:go()
   if headers:get ":status" ~= "200" then
     kong.response.exit(403, "forbidden")
