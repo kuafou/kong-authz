@@ -14,13 +14,7 @@ function _M.execute(conf)
   end 
 
   -- send to authz
-  kong.log.info("method is: " .. method)
-  kong.log.info("path is: " .. path)
-  kong.log.info("userUUID is: " .. user_uuid)
   local epath = ngx.encode_args({sub = user_uuid, obj = path, act = method})
-  kong.log.info("epath is: ".. epath)
-
-
   local uri = string.format("http://172.16.0.43:8888/authz?%s", epath)
   local req = hrequest.new_from_uri(uri)
   local headers, stream = req:go()
